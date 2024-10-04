@@ -6,9 +6,37 @@
 <div class="container">
     <h3 class="py-3">Home</h3>
     <div class="h-100 p-5 shadow-sm bg-body-tertiary ">
+      
       <h1 class="display-5"><strong>This is blog title</strong></h1>
       <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
       <button class="btn btn-outline-light" type="button">Example button</button>
     </div>
   </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    {% if messages %}
+    {% for message in messages %}
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header  text-success">
+          {% comment %} <img src="..." class="rounded me-2" alt="..."> {% endcomment %}
+          <strong class="me-auto">{{message.tags}}</strong>
+          {% comment %} <small>11 mins ago</small> {% endcomment %}
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  
 {% endblock content %}
+
+{% block push_scripts %}
+<script>
+  $(document).ready(function () {
+    $('.toast').toast('show');
+});
+</script>
+{% endblock push_scripts %}

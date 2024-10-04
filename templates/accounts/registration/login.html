@@ -1,0 +1,62 @@
+{% extends "base/_base.html" %}
+{% block title %}{{"login"}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card my-5 col-lg-8 col-md-10 col-12 pb-3">
+            <h3 class="py-3">Login</h3>
+            <form class="row g-3 needs-validation" method="post" novalidate>
+                {% csrf_token %}
+                
+               {% comment %} {{form}} {% endcomment %}
+               <div class="form-group">
+                    <label id="{{form.username.id_for_label}}">{{ form.username.label }}</label>
+                    {{ form.username }}
+                    {{field.errors}}
+                </div>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+            </table>
+            
+
+                <div class="col-12">
+                  
+                  <input class="btn btn-success" type="submit" class="form-control" value="Login">
+                </div>
+                
+            </form>
+        </div>    
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block push_scripts %}
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+  
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+  
+  
+
+</script>
+{% endblock push_scripts %}

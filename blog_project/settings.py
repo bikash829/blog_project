@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.forms', # to override form template
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,7 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog_project.wsgi.application'
 
-
+# FORM_RENDERER = 'django.forms.renderers.TemplatesSetting' # to override by creating directory as like app
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
