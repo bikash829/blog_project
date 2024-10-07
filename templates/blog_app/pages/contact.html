@@ -6,23 +6,53 @@
 <div class="container">
 <h3 class="py-3">Contact Us</h3>
 
-<form class="row g-3 col-md-10 col-lg-8">
+<form method="post" class="row g-3 col-md-10 col-lg-8" novalidate>
+  {% csrf_token %}
     <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Name</label>
-        <input type="text" class="form-control" id="inputPassword4">
-      </div>
+        <label for="{{form.name.id_for_label}}" class="form-label">Name</label>
+        <input type="text" class="form-control {% if form.name.errors %}is-invalid{% endif %}" name="{{form.name.name}}" id="{{form.name.auto_id}}" value="{{ form.name.value|default_if_none:'' }}">
+        {% if form.name.errors %}
+            {% for error in form.name.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
     <div class="col-md-6">
       <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail4">
+      <input type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}" name="email" id="inputEmail4"  value="{{ form.email.value|default_if_none:'' }}">
+      {% if form.email.errors %}
+          {% for error in form.email.errors %}
+              <div class="invalid-feedback">
+                  {{ error }}
+              </div>
+          {% endfor %}
+      {% endif %}
     </div>
     
     <div class="col-12">
       <label for="inputAddress" class="form-label">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+      <input type="text" class="form-control {% if form.address.errors %}is-invalid{% endif %}" name="address" id="inputAddress" placeholder="1234 Main St"  value="{{ form.address.value|default_if_none:'' }}">
+      {% if form.address.errors %}
+            {% for error in form.address.errors %}
+                <div class="invalid-feedback">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="col-12">
       <label for="inputAddress2" class="form-label">Message</label>
-        <textarea class="form-control" name="" id="" rows="3"></textarea>
+      <textarea class="form-control {% if form.message.errors %}is-invalid{% endif %}" name="message" id="" rows="3">{{ form.message.value|default_if_none:'' }}</textarea>
+      {% if form.message.errors %}
+          {% for error in form.message.errors %}
+              <div class="invalid-feedback">
+                  {{ error }}
+              </div>
+          {% endfor %}
+      {% endif %}
+
     </div>
    
     
@@ -32,5 +62,31 @@
   </form>
 </div>
 
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% if messages %}
+  {% for message in messages %}
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header  text-success">
+        {% comment %} <img src="..." class="rounded me-2" alt="..."> {% endcomment %}
+        <strong class="me-auto">{{message.tags}}</strong>
+        {% comment %} <small>11 mins ago</small> {% endcomment %}
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{ message }}
+      </div>
+    </div>
+  {% endfor %}
+  {% endif %}
+</div>
 
 {% endblock content %}
+
+
+{% block push_scripts %}
+<script>
+  $(document).ready(function () {
+    $('.toast').toast('show');
+});
+</script>
+{% endblock push_scripts %}
