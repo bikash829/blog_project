@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'django.forms', # to override form template
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,8 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_app.apps.BlogAppConfig',
-    'accounts.apps.AccountsConfig',
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +135,8 @@ MEDIA_ROOT = BASE_DIR / 'media' # 'data' is my media folder
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+
+# url /
+# LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'

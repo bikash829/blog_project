@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from .forms import UserForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 from .custom_forms_templates import BootstrapErrorList
 
@@ -14,8 +16,17 @@ def sign_up(request):
             messages.success(request, "Your account has been created successfully.")
             return redirect('blog:home')
 
-    template_name = "accounts/sign_up.html"
+    template_name = "registration/sign_up.html"
     context = {
         'form': form
     }
     return render(request,template_name,context)
+
+
+@login_required
+def profile(request):
+    template_dir = "registration/profile.html"
+    context= {
+
+    }
+    return render(request,template_dir,context)
