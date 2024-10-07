@@ -34,9 +34,11 @@
                   <li class="nav-item">
                     <a class="nav-link {% if request.path == '/blog/contact/' %}active{% endif %}" href="{% url 'blog:contact' %}">Contact</a>
                   </li>
+                  {% if user.is_authenticated %}
                   <li class="nav-item">
                     <a class="nav-link {% if request.path == '/blog/dashboard/' %}active{% endif %}" href="{% url 'blog:dashboard' %}">Dashborad</a>
                   </li>
+                  {% endif %}
                 </ul>
 
                 <ul class="navbar-nav me-0 mb-2 mb-lg-0">
