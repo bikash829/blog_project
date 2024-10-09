@@ -6,3 +6,4 @@ class CustomFormRenderer(TemplatesSetting):
 
 class BootstrapErrorList(ErrorList):
     template_name = 'form_error/bootstrap_error.html'
+    # template_name = 'form_templates/bootstrap_error.html' # doesn't work

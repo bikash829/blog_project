@@ -5,7 +5,62 @@
 {% block content %}
 <div class="container">
 <h3 class="py-3">Dashboard</h3>
-</div>
+    <div>
+        <a class="btn btn-success" href="{% url 'blog:create_post' %}"><i class="fa-regular fa-pen-to-square"></i> Create New Post</a>
+        <hr>
+        <h4>Post Info</h4>
+        <table class="table  table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Post Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for item in posts %}
+              <tr>
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <div class="d-flex">
+                        <a href="{% url 'blog:edit_post' item.id %}" class="btn btn-primary btn-sm me-2">Edit</a>
+                        <a href="{% url 'blog:delete_post' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </td>
+              </tr>
+              {% endfor %}
+            
+            </tbody>
+          </table>
+    </div>
 </div>
 
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    {% if messages %}
+    {% for message in messages %}
+      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header  text-{{message.tags}}">
+          {% comment %} <img src="..." class="rounded me-2" alt="..."> {% endcomment %}
+          <strong class="me-auto">{{message.tags}}</strong>
+          {% comment %} <small>11 mins ago</small> {% endcomment %}
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{ message }}
+        </div>
+      </div>
+    {% endfor %}
+    {% endif %}
+  </div>
 {% endblock content %}
+
+{% block push_scripts %}
+<script>
+  $(document).ready(function () {
+    $('.toast').toast('show');
+});
+</script>
+{% endblock push_scripts %}

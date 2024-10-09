@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
-from .custom_forms_templates import CustomFormRenderer
+from blog_project.custom_forms_templates import CustomFormRenderer
 
 
 class UserForm(UserCreationForm):

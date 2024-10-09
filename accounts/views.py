@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-from .custom_forms_templates import BootstrapErrorList
+from blog_project.custom_forms_templates import BootstrapErrorList
 
 def sign_up(request):
     form = UserForm(error_class=BootstrapErrorList)
